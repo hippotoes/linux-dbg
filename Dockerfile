@@ -5,12 +5,15 @@ FROM ubuntu:20.04
 ENV TZ Asia/Shanghai
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update
-RUN apt-get install -y --no-install-recommends \
+RUN apt-get update \
+        && apt-get install -y --no-install-recommends \
                 make tzdata \
                 zlib1g-dev \
                 libudev1 libudev-dev \
                 libpci-dev \
-                libpciaccess-dev
-RUN apt-get install -y --no-install-recommends \
-                build-essential
+                libpciaccess-dev \
+                build-essential \
+        && apt-get autoremove -y \
+        && apt-get clean \
+        && rm -rf /var/lib/apt/lists/*rm /var/log/alternatives.log /var/log/apt/* \
+        && rm /var/log/* -r
